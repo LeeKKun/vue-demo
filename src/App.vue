@@ -10,11 +10,8 @@
 </script>
 
 <style lang="less">
-#app {
-  .box {
-    width: 200px;
-    height: 200px;
-    background: pink;
-  }
+body,html,#app{
+  width: 100%;
+  height: 100%;
 }
 </style>
