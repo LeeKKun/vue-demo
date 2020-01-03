@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 <template>
   <div class="login">
     <el-form :rules="rules" status-icon ref="form" :model="form" label-width="80px">
@@ -55,12 +54,12 @@ export default {
     login() {
       this.$refs.form.validate((isdl) => {
         if (!isdl) return;
-        console.log('发送请求');
+        // console.log('发送请求');
         axios.post('http://localhost:8888/api/private/v1/login', this.form).then((res) => {
-          console.log(res);
+          // console.log(res);
           const { meta } = res.data;
           if (meta.status === 200) {
-            console.log('登录成功');
+            // console.log('登录成功');
             this.$message({
               showClose: true,
               message: meta.msg,
@@ -69,7 +68,7 @@ export default {
             // 登录成功跳转到首页
             this.$router.push('/index');
           } else {
-            console.log('登录失败');
+            // console.log('登录失败');
             this.$message({
               showClose: true,
               message: meta.msg,
@@ -81,7 +80,7 @@ export default {
     },
     reset() {
       this.$refs.form.resetFields();
-      console.log(4444);
+      // console.log(4444);
     },
   },
 };
