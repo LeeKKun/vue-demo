@@ -61,7 +61,7 @@ export default {
         // 验证通过，发送ajax请求
         axios.post('http://localhost:8888/api/private/v1/login', this.form).then((res) => {
           // console.log(res);
-          const { meta } = res.data;
+          const { meta, data } = res.data;
           // 弹出登录成功消息框
           if (meta.status === 200) {
             this.$message({
@@ -69,6 +69,9 @@ export default {
               message: meta.msg, // 配置内容为成功后的msg
               type: 'success',
             });
+
+            // 发送请求时，将token存起来
+            localStorage.setItem('token', data.token);
 
             // 登录成功跳转到首页
             this.$router.push('/index');

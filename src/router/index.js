@@ -19,5 +19,19 @@ const router = new VueRouter({
   ],
 });
 
+// 配置全局前置守卫
+// 将所有的路由被访问时，都会经过前置守卫，只有通过前置守卫，才能看到对应内容
+// to 到哪去
+// from 到哪去
+// next() 放行，next(路径) 拦截到对应的路由
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+  if (token || to.path === '/login') {
+    next();
+  } else {
+    next('/login');
+  }
+});
+
 // 默认导出
 export default router;
