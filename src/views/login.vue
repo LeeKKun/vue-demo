@@ -21,6 +21,7 @@
 </template>
 
 <script>
+// 导入ajax
 import axios from 'axios';
 
 export default {
@@ -52,23 +53,28 @@ export default {
   },
   methods: {
     login() {
+      // 先进行校验，校验通过发送ajax请求
       this.$refs.form.validate((isdl) => {
+        // isdl 是否通过校验, true, 通过, false未通过
+        // 如果未通过校验, 直接return
         if (!isdl) return;
-        // console.log('发送请求');
+        // 验证通过，发送ajax请求
         axios.post('http://localhost:8888/api/private/v1/login', this.form).then((res) => {
           // console.log(res);
           const { meta } = res.data;
+          // 弹出登录成功消息框
           if (meta.status === 200) {
-            // console.log('登录成功');
             this.$message({
-              showClose: true,
-              message: meta.msg,
+              showClose: true, // 配置手动关闭消息框
+              message: meta.msg, // 配置内容为成功后的msg
               type: 'success',
             });
+
             // 登录成功跳转到首页
             this.$router.push('/index');
           } else {
             // console.log('登录失败');
+            // 弹出登录失败消息框
             this.$message({
               showClose: true,
               message: meta.msg,
@@ -79,8 +85,8 @@ export default {
       });
     },
     reset() {
+      // 调用from组件的重置方法，进行重置
       this.$refs.form.resetFields();
-      // console.log(4444);
     },
   },
 };

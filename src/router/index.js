@@ -12,8 +12,8 @@ Vue.use(VueRouter);
 // 创建路由实例
 const router = new VueRouter({
   routes: [
-    { path: '/', redirect: index },
-    { path: '/index', component: index },
+    { path: '/', redirect: '/index' },
+    { path: '/index', name: 'index', component: index },
     { path: '/login', component: login },
     { path: '/register', component: Register },
   ],
