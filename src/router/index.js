@@ -4,6 +4,10 @@ import VueRouter from 'vue-router';
 import login from '../views/login.vue';
 import Register from '../views/Register.vue';
 import index from '../views/index.vue';
+import users from '../views/users.vue';
+import rights from '../views/rights.vue';
+import roles from '../views/roles.vue';
+import home from '../views/home.vue';
 
 // 基于vue的插件, 需要Vue.use一下, 才能使用, 不然会报错
 Vue.use(VueRouter);
@@ -13,7 +17,16 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes: [
     { path: '/', redirect: '/index' },
-    { path: '/index', name: 'index', component: index },
+    {
+      path: '/index',
+      component: index,
+      children: [
+        { path: '', component: home },
+        { path: '/users', component: users },
+        { path: '/rights', component: rights },
+        { path: '/roles', component: roles },
+      ],
+    },
     { path: '/login', component: login },
     { path: '/register', component: Register },
   ],
