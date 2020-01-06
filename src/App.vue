@@ -6,11 +6,12 @@
 </template>
 
 <script>
-
 </script>
 
 <style lang="less">
-body,html,#app{
+body,
+html,
+#app {
   width: 100%;
   height: 100%;
 }

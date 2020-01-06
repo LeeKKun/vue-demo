@@ -59,9 +59,9 @@ export default {
         // 如果未通过校验, 直接return
         if (!isdl) return;
         // 验证通过，发送ajax请求
-        axios.post('http://localhost:8888/api/private/v1/login', this.form).then((res) => {
+        axios.post('login', this.form).then((res) => {
           // console.log(res);
-          const { meta, data } = res.data;
+          const { meta, data } = res;
           // 弹出登录成功消息框
           if (meta.status === 200) {
             this.$message({

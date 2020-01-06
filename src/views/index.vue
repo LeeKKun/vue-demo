@@ -19,7 +19,7 @@
         <el-menu
           router
           unique-opened
-          default-active='defaultActive'
+          default-active="defaultActive"
           class="el-menu-vertical-demo"
           background-color="#545c64"
           text-color="#fff"
@@ -41,7 +41,6 @@
       </el-aside>
 
       <el-main>
-
         <!-- 子路由出口 -->
         <router-view></router-view>
       </el-main>
@@ -50,8 +49,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   computed: {
     defaultActive() {
@@ -68,16 +65,10 @@ export default {
   },
   created() {
     // 发送ajax请求
-    axios
-      .get('http://localhost:8888/api/private/v1/menus', {
-        // 配置请求头
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      })
-      .then((res) => {
+    this.$axios
+      .get('menus').then((res) => {
         // console.log(res.data);
-        const { data, meta } = res.data;
+        const { data, meta } = res;
         if (meta.status === 200) {
           this.menulist = data;
           // console.log(this.menulist);
@@ -105,9 +96,7 @@ export default {
           // 跳转到登录页 (跳转路由)
           this.$router.push('/login');
         })
-        .catch(() => {
-
-        });
+        .catch(() => {});
     },
   },
 };
