@@ -115,7 +115,6 @@ export default {
       // eslint-disable-next-line no-template-curly-in-string
       this.$axios.put('users/${id}/state/${type}', {
       }).then(
-
       );
     },
   },
