@@ -19,7 +19,7 @@
         <el-menu
           router
           unique-opened
-          default-active="defaultActive"
+          :default-active="defaultActive"
           class="el-menu-vertical-demo"
           background-color="#545c64"
           text-color="#fff"
@@ -55,7 +55,7 @@ export default {
       // this.$route 获取地址栏相关的参数信息
       // this.$router 整个的大的路由实例, 一个应用一般就一个
       // console.log(this.$route)
-      return this.$route.path.slice(1);
+      return this.$route.path.slice(1).split('-')[0];
     },
   },
   data() {
@@ -144,8 +144,9 @@ export default {
       border-right: none;
     }
   }
-  .el-main {
-    background-color: #fff;
+
+    .el-main {
+    background-color: #ecf0f1;
   }
 }
 </style>

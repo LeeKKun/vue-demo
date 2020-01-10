@@ -1,10 +1,10 @@
 <template>
 <div>
-  <img src="../assets/TIM图片20200104211734.jpg" alt="">
-  <img src="../assets/TIM图片20200104211738.jpg" alt="">
+  <img src="../../assets/TIM图片20200104211734.jpg">
+  <img src="../../assets/TIM图片20200104211738.jpg">
+  <!-- <img src=""> -->
 </div>
 </template>
-
 <script>
 export default {
 

@@ -4,10 +4,14 @@ import VueRouter from 'vue-router';
 import login from '../views/login.vue';
 import Register from '../views/Register.vue';
 import index from '../views/index.vue';
-import users from '../views/users.vue';
-import rights from '../views/rights.vue';
-import roles from '../views/roles.vue';
-import home from '../views/home.vue';
+
+import users from '../views/users/users.vue';
+import rights from '../views/rights/rights.vue';
+import roles from '../views/rights/roles.vue';
+import home from '../views/home/home.vue';
+import categories from '../views/products/categories.vue';
+import goods from '../views/products/goods.vue';
+import goodadd from '../views/products/goodsadd.vue';
 
 // 基于vue的插件, 需要Vue.use一下, 才能使用, 不然会报错
 Vue.use(VueRouter);
@@ -25,6 +29,9 @@ const router = new VueRouter({
         { path: '/users', component: users },
         { path: '/rights', component: rights },
         { path: '/roles', component: roles },
+        { path: '/categories', component: categories },
+        { path: '/goods', component: goods },
+        { path: '/goods-add', component: goodadd },
       ],
     },
     { path: '/login', component: login },

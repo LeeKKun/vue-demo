@@ -36,16 +36,20 @@
       <el-table-column label="操作">
         <template v-slot:default="{row}">
           <el-button size="mini" @click="eiditform(row)"
-          plain type="primary" icon="el-icon-edit"></el-button>
+          plain type="primary" icon="el-icon-edit"
+          ></el-button>
+
+          <el-button ref="delbtn" @click="userdel(row.id,$event)" size="mini"
+          plain type="danger" icon="el-icon-delete">
+          </el-button>
+
           <el-button
-            @click="userdel(row.id)"
+            @click="showassignform(row)"
             size="mini"
             plain
-            type="danger"
-            icon="el-icon-delete"
-          ></el-button>
-          <el-button @click="showassignform(row)" size="mini"
-          plain type="success" icon="el-icon-check">分配角色</el-button>
+            type="success"
+            icon="el-icon-check"
+          >分配角色</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -93,7 +97,7 @@
     </el-dialog>
 
     <!-- 修改对话框 -->
-    <el-dialog  title="修改用户" :visible.sync="editVisible" width="30%">
+    <el-dialog title="修改用户" :visible.sync="editVisible" width="30%">
       <!-- 内容部分 -->
       <span>
         <el-form :rules="rules" ref="editform" :model="editform" label-width="80px">
@@ -114,38 +118,35 @@
       <template v-slot:footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary"  @click="addeditform">确 定</el-button>
+          <el-button type="primary" @click="addeditform">确 定</el-button>
         </span>
       </template>
     </el-dialog>
 
     <!-- 分配角色 -->
-    <el-dialog  title="分配角色"
-    :visible.sync="assignformVisible"
-    width="30%">
+    <el-dialog title="分配角色" :visible.sync="assignformVisible" width="30%">
       <!-- 内容部分 -->
-        <el-form  :model="assignform" label-width="80px">
-          <el-form-item label="用户名">
-            <el-tag type="info">{{assignform.username}}</el-tag>
-          </el-form-item>
+      <el-form :model="assignform" label-width="80px">
+        <el-form-item label="用户名">
+          <el-tag type="info">{{assignform.username}}</el-tag>
+        </el-form-item>
 
-          <el-form-item label="角色列表">
-               <el-select v-model="assignform.rid" placeholder="请选择">
-              <el-option
+        <el-form-item label="角色列表">
+          <el-select v-model="assignform.rid" placeholder="请选择">
+            <el-option
               :value="item.id"
               :label="item.roleName"
               v-for="item in options"
               :key="item.id"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
 
       <template v-slot:footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary"  @click="assform">确 定</el-button>
+          <el-button type="primary" @click="assform">确 定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -280,7 +281,7 @@ export default {
       }
     },
     // 删除对话框
-    async userdel(id) {
+    async userdel(id, e) {
       console.log(id);
       try {
         await this.$confirm('确认删除', '温习提示', {
@@ -300,6 +301,9 @@ export default {
         }
       } catch (err) {
         console.log(err);
+      } finally {
+        console.log(this.$refs.delbtn);
+        console.log(null, e.target);
       }
     },
     // 打开添加对话框
@@ -351,7 +355,10 @@ export default {
         // 进行校验
         await this.$refs.editform.validate();
         const { id, email, mobile } = this.editform;
-        const { meta } = await this.$axios.put(`users/${id}`, { email, mobile });
+        const { meta } = await this.$axios.put(`users/${id}`, {
+          email,
+          mobile,
+        });
         console.log(meta);
         if (meta.status === 200) {
           this.$message.success(meta.msg);
