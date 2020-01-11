@@ -150,12 +150,22 @@ export default {
     async addcat() {
       try {
         await this.$refs.form.validate();
-        const { meta } = this.$axios.post('categories', {
-          cat_pid: this.form.cat_pid[this.form.cat_pid.length - 1 || 0],
+        const { cat_pid: catpid } = this.form;
+        const { meta } = await this.$axios.post('categories', {
+          cat_pid: catpid[catpid.length - 1] || 0,
           cat_name: this.form.cat_name,
-          cat_level: this.form.cat_pid.length,
+          cat_level: catpid.length,
         });
         console.log(meta);
+
+        if (meta.status === 201) {
+          this.$message.success(meta.msg);
+          this.addVisible = false;
+          this.$refs.form.resetFields();
+          this.getlist();
+        } else {
+          this.$message.error(meta.msg);
+        }
       } catch (e) {
         console.log(e);
       }

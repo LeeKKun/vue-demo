@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 步骤条 -->
-    <el-steps :active="active">
+    <el-steps :active="active" finish-status="success">
       <el-step title="步骤 1" description="基本信息"></el-step>
       <el-step title="步骤 2" description="商品图片"></el-step>
       <el-step title="步骤 3" description="商品内容"></el-step>
@@ -55,7 +55,10 @@
 
       <el-tab-pane label="商品内容" name="three">
         <quill-editor v-model="form.goods_introduce"></quill-editor>
+        <el-button type="primary" class="addbtn">添加</el-button>
+
       </el-tab-pane>
+
     </el-tabs>
 
     <!-- 图片预览模态框 -->
@@ -162,5 +165,13 @@ export default {
   /deep/ .ql-editor {
     height: 300px;
   }
+}
+
+.el-tabs{
+  margin-top: 40px
+}
+
+.addbtn{
+margin-top: 20px
 }
 </style>
