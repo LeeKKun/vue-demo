@@ -55,7 +55,7 @@
 
       <el-tab-pane label="商品内容" name="three">
         <quill-editor v-model="form.goods_introduce"></quill-editor>
-        <el-button type="primary" class="addbtn">添加</el-button>
+        <el-button @click="addbtn" type="primary" class="addbtn">添加</el-button>
 
       </el-tab-pane>
 
@@ -150,6 +150,21 @@ export default {
     handlePictureCardPreview(file) {
       this.dialogVisible = true;
       this.imgUrl = file.url;
+    },
+    async addbtn() {
+      console.log(888);
+      const { meta } = await this.$axios.post('goods', {
+        ...this.form,
+        goods_cat: this.form.goods_cat.join(),
+      });
+      console.log(meta);
+      if (meta.status === 201) {
+        this.$router.push('/goods');
+        this.$message.success(meta.msg);
+        this.$refs.form.resetFields();
+      } else {
+        this.$message.error(meta.msg);
+      }
     },
   },
 };
